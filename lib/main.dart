@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         cardTheme: CardTheme().copyWith(),
 
         appBarTheme: AppBarTheme().copyWith(centerTitle: true, backgroundColor: Color(0xffded8e6)),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurpleAccent),
         useMaterial3: true,
       ),
       home: HomePageView(),
