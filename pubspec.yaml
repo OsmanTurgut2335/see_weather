@@ -27,11 +27,12 @@ environment:
 # dependencies can be manually updated by changing the version numbers below to
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
+
 dependencies:
   flutter:
     sdk: flutter
-
   dio: ^5.7.0
+
   lottie: ^2.3.2
 
   # The following adds the Cupertino Icons font to your application.

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:see_weather/demos/image_methods.dart';
+import 'package:see_weather/core/widgets.dart';
+
 import 'package:see_weather/service/models/currentweather_model.dart';
 import 'package:see_weather/service/weather_service.dart/currentweather_service.dart';
 

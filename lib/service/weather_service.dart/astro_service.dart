@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:see_weather/service/models/astro_response_model.dart';
 
@@ -32,7 +31,6 @@ class AstroService {
         return AstroResponseModel.fromJson(data);
       }
     }
-  
   }
 }
 

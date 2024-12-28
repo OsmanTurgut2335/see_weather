@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:see_weather/core/utils/date_time_utils.dart';
 import 'package:see_weather/core/utils/image_utils.dart';
-import 'package:see_weather/core/utils/integer_constants.dart';
-import 'package:see_weather/core/utils/string_constants.dart';
+import 'package:see_weather/core/constants/integer_constants.dart';
+import 'package:see_weather/core/constants/string_constants.dart';
+import 'package:see_weather/core/widgets.dart';
 import 'package:see_weather/service/models/astro_response_model.dart';
 import 'package:see_weather/service/weather_service.dart/astro_service.dart';
 
@@ -87,7 +88,7 @@ class _AstroViewState extends State<AstroView> with SingleTickerProviderStateMix
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: _isNight ? Color(0xFF5f3d8f) : Color(0xFFf2e9c2),
-      appBar: AppBar(title: Text(StringConstants().astroHeader)),
+      appBar: AppBar(title: Text(StringConstants.astroHeader)),
       body: Stack(
         children: [
           // Arka plandaki görsel
@@ -103,38 +104,23 @@ class _AstroViewState extends State<AstroView> with SingleTickerProviderStateMix
 
               child: ListView(
                 children: [
-                  Container(
-                    //  color: Color(0xff301140),
+                  customSizedBox(StringConstants.localTime, response?.location?.localtime),
+                  Divider(thickness: IntegerConstants().thickness, color: Color(0xffe4d3ed)),
+                  SizedBox(
                     height: 60,
-                    child: customCard("${StringConstants().localTime} : ${response?.location?.localtime} "),
+                    child: CustomCard("${StringConstants.sunrise} : ${response?.astronomy?.astro?.sunrise} ",_isNight),
                   ),
                   Divider(thickness: IntegerConstants().thickness, color: Color(0xffe4d3ed)),
-                  Container(
-                    //  color: Color(0xff301140),
+                  SizedBox(
                     height: 60,
-                    child: customCard("${StringConstants().sunrise} : ${response?.astronomy?.astro?.sunrise} "),
+                    child: CustomCard("${StringConstants.sundown} : ${response?.astronomy?.astro?.sunset} ",_isNight),
                   ),
                   Divider(thickness: IntegerConstants().thickness, color: Color(0xffe4d3ed)),
-                  Container(
-                    // color: Color(0xff301140),
+                  SizedBox(
                     height: 60,
-                    child: customCard("${StringConstants().sundown} : ${response?.astronomy?.astro?.sunset} "),
+                    child: CustomCard("${StringConstants.moonState} : ${response?.astronomy?.astro?.moonPhase} ",_isNight),
                   ),
-                  Divider(thickness: IntegerConstants().thickness, color: Color(0xffe4d3ed)),
-                  Container(
-                    // color: Color(0xff301140),
-                    height: 60,
-                    child:
-                        _isNight
-                            ? Card(
-                              color: Color(0xffa982bd),
-                              child: Center(child: Text("YARRAK", style: TextStyles().textStyle)),
-                            )
-                            : Card(
-                              color: Color(0xffa7a5a8),
-                              child: Center(child: Text("YARRAK", style: TextStyles().textStyle)),
-                            ),
-                  ),
+            
                   Divider(thickness: IntegerConstants().thickness, color: Color(0xffe4d3ed)),
                   _lottieWidget,
                 ],
@@ -146,27 +132,25 @@ class _AstroViewState extends State<AstroView> with SingleTickerProviderStateMix
     );
   }
 
+  SizedBox customSizedBox(String header, String? content) {
+    return SizedBox(height: 60, child: CustomCard("$header : $content ",_isNight));
+  }
+
   Future<void> checkTimeZone() async {
     final result = dateTimeUtils.compareTimes(
       response?.location?.localtime ?? "",
       response?.astronomy?.astro?.moonrise ?? "",
       response?.astronomy?.astro?.sunrise ?? "",
     );
-    print(result != StringConstants().gunduz);
-    changeisNight(result != StringConstants().gunduz);
+    print(result != StringConstants.gunduz);
+    changeisNight(result != StringConstants.gunduz);
   }
 
   Image compareTimeZone() {
-    return ImageUtils.getImageFromAssets(_isNight ? StringConstants().gece : StringConstants().gunduz);
+    return ImageUtils.getImageFromAssets(_isNight ? StringConstants.gece : StringConstants.gunduz);
   }
 
-  Card customCard(String text) {
-    if (_isNight) {
-      return Card(color: Color(0xffa982bd), child: Center(child: Text(text, style: TextStyles().textStyle)));
-    } else {
-      return Card(color: Color(0xffa7a5a8), child: Center(child: Text(text, style: TextStyles().textStyle)));
-    }
-  }
+
 }
 
 class TextStyles {

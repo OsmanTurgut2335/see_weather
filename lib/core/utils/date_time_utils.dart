@@ -1,7 +1,7 @@
-import 'package:see_weather/core/utils/string_constants.dart';
+import 'package:see_weather/core/constants/string_constants.dart';
 
 class DateTimeUtils {
-    String compareTimes(String localtime, String moonrise, String sunrise) {
+  String compareTimes(String localtime, String moonrise, String sunrise) {
     // Eğer herhangi bir değer boş ise işlem yapmayalım
     if (localtime.isEmpty || moonrise.isEmpty || sunrise.isEmpty) {
       return "";
@@ -19,13 +19,11 @@ class DateTimeUtils {
       DateTime moonriseDateTime = parseTimeWithDate(convertedMoonrise, localDateTime);
       DateTime sunriseDateTime = parseTimeWithDate(convertedSunrise, localDateTime);
 
-    
-
       // Gündüz veya gece kontrolü
       if (localDateTime.isAfter(sunriseDateTime) && localDateTime.isBefore(moonriseDateTime)) {
-        return StringConstants().gunduz;
+        return StringConstants.gunduz;
       } else {
-        return StringConstants().gece;
+        return StringConstants.gece;
       }
     } catch (e) {
       print("Error in compareTimes: $e");
